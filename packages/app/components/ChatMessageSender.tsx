@@ -6,7 +6,7 @@ export const ChatMessageSender = () => {
   const [message, setMessage] = useState("");
 
   const onKeyDown: React.KeyboardEventHandler = function (e) {
-    if (e.key === "Enter" && e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       setMessage("");
     }
