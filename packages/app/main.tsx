@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import CustomThemeProvider from "./theme";
+import ThemeProvider from "./theme";
 
 const root = document.getElementById("root");
 
@@ -12,8 +12,8 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <CustomThemeProvider>
+    <ThemeProvider>
       <App />
-    </CustomThemeProvider>
+    </ThemeProvider>
   </StrictMode>,
 );
