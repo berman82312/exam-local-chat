@@ -1,5 +1,9 @@
 {
   "extends": ["@exam/tsconfig/node/tsconfig"],
-  "include": ["*.config.js", "*.config.ts"],
+  "include": [
+    "*.config.js",
+    "*.config.ts",
+    "packages/build/tailwind.config.ts"
+  ],
   "exclude": ["node_modules", "packages"]
 }
