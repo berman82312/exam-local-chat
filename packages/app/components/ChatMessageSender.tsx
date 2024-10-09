@@ -20,6 +20,7 @@ export const ChatMessageSender = () => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         multiline
+        maxRows={5}
         onKeyDown={onKeyDown}
         slotProps={{
           input: {
