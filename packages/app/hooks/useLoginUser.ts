@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useMembersStore } from "../stores/chatMembers";
 import { useUserStore } from "../stores/user";
 import type { User } from "../types/models";
+import { generateId } from "../utils/userUtils";
 
 export const useLoginUser = () => {
   const { join } = useMembersStore();
@@ -27,7 +28,7 @@ export const useLoginUser = () => {
 
   function login(name: string) {
     setUser({
-      id: Math.round(Math.random() * 1e16).toString(),
+      id: generateId(),
       name,
     });
   }

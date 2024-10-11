@@ -1,16 +1,25 @@
 import { Send } from "@mui/icons-material";
 import { IconButton, TextField } from "@mui/material";
 import { useState } from "react";
+import { useChatMessage } from "../hooks/useChatMessage";
+import { useLoginUser } from "../hooks/useLoginUser";
 
 export const ChatMessageSender = () => {
   const [message, setMessage] = useState("");
+  const { send } = useChatMessage();
+  const { user } = useLoginUser();
 
   const onKeyDown: React.KeyboardEventHandler = function (e) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      setMessage("");
+      sendMessage();
     }
   };
+
+  function sendMessage() {
+    send(user!, message);
+    setMessage("");
+  }
 
   return (
     <div className="p-4 border-t border-gray-400">
@@ -25,7 +34,7 @@ export const ChatMessageSender = () => {
         slotProps={{
           input: {
             endAdornment: (
-              <IconButton>
+              <IconButton onClick={sendMessage}>
                 <Send />
               </IconButton>
             ),
