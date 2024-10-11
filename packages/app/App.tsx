@@ -1,10 +1,10 @@
 import { Container } from "@mui/material";
 import { ChatRoom } from "./components/ChatRoom";
 import { Login } from "./components/Login";
-import { useLoginUser } from "./hooks/useLoginUser";
+import { useUserStore } from "./stores/user";
 
 function App() {
-  const { isLogin } = useLoginUser();
+  const isLogin = useUserStore((state) => !!state.user);
   return (
     <Container maxWidth="sm" component={"main"}>
       {isLogin ? <ChatRoom /> : <Login />}

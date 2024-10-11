@@ -1,7 +1,9 @@
 import { useEffect } from "react";
+import { chatChannel } from "../lib/chatChannel";
 import { useMembersStore } from "../stores/chatMembers";
 import { useUserStore } from "../stores/user";
-import type { User } from "../types/models";
+import { MessageType, type User } from "../types/models";
+import { createMessage } from "../utils/messageUtils";
 import { generateId } from "../utils/userUtils";
 
 export const useLoginUser = () => {
@@ -17,8 +19,12 @@ export const useLoginUser = () => {
     }
 
     function handleFirstJoin(user: User) {
-      return user.name;
-      // handle first join
+      const message = createMessage(
+        user,
+        `${user.name} joined`,
+        MessageType.Join,
+      );
+      chatChannel.send(message);
     }
 
     if (user) {
@@ -35,7 +41,6 @@ export const useLoginUser = () => {
 
   return {
     user,
-    isLogin: !!user,
     login,
   };
 };
