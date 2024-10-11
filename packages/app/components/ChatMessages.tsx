@@ -36,7 +36,7 @@ const MyMessage = ({ message }: MessageProps) => {
 
 const OtherMessage = ({ message }: MessageProps) => {
   return (
-    <div className="flex flex-col items-start my-2">
+    <div className="my-2 flex flex-col items-start">
       <p className="text-xs text-gray-400">{message.user.name}</p>
       <p className="p-2 bg-gray-800 rounded-md whitespace-pre-wrap max-w-full mr-16">
         {message.content}
