@@ -54,7 +54,7 @@ export const ChatMessages = () => {
   const { user } = useLoginUser();
   const messages = useMessagesStore((state) => state.messages);
   return (
-    <div className="flex flex-grow flex-col-reverse">
+    <div className="flex flex-grow flex-col-reverse overflow-auto">
       {messages.map((message) => (
         <MessageItem
           key={message.id}
