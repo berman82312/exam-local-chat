@@ -20,8 +20,8 @@ export function createMessage(
   };
 }
 
-export function isInfoMessage(message: Message) {
-  const infoMessageTypes = [MessageType.Join, MessageType.Leave];
+export function isSystemMessage(message: Message) {
+  const systemMessageTypes = [MessageType.Join, MessageType.Leave];
 
-  return infoMessageTypes.includes(message.type);
+  return systemMessageTypes.includes(message.type);
 }

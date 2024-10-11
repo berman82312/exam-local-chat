@@ -1,7 +1,7 @@
 import { useLoginUser } from "../hooks/useLoginUser";
 import { useMessagesStore } from "../stores/chatMessages";
 import type { Message } from "../types/models";
-import { isInfoMessage } from "../utils/messageUtils";
+import { isSystemMessage } from "../utils/messageUtils";
 import { isSameUser } from "../utils/userUtils";
 
 interface MessageProps {
@@ -43,7 +43,7 @@ const OtherMessage = ({ message }: MessageProps) => {
 };
 
 const MessageItem = ({ message, isMe }: MessageItemProps) => {
-  if (isInfoMessage(message)) {
+  if (isSystemMessage(message)) {
     return <MiddleMessage message={message} />;
   }
 
