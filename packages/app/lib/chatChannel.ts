@@ -1,4 +1,5 @@
-import type { Message } from "../types/models";
+import { type Message, MessageType, type User } from "../types/models";
+import { createMessage } from "../utils/messageUtils";
 
 class ChatChannel {
   name = "chat-message";
@@ -9,6 +10,17 @@ class ChatChannel {
 
   send(data: any) {
     this.channel.postMessage(data);
+  }
+
+  userJoin(user: User) {
+    const message = createMessage(
+      user,
+      `${user.name} joined`,
+      MessageType.Join,
+    );
+    this.send(message);
+
+    return message;
   }
 
   onReceive(cb: (message: Message) => void) {

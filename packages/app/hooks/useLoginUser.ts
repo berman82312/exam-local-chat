@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { chatChannel } from "../lib/chatChannel";
 import { useMembersStore } from "../stores/chatMembers";
+import { useMessagesStore } from "../stores/chatMessages";
 import { useUserStore } from "../stores/user";
-import { MessageType, type User } from "../types/models";
-import { createMessage } from "../utils/messageUtils";
+import type { User } from "../types/models";
 import { generateId } from "../utils/userUtils";
 
 export const useLoginUser = () => {
   const { join } = useMembersStore();
   const { user, setUser } = useUserStore();
+  const addMessage = useMessagesStore((state) => state.send);
 
   useEffect(() => {
     function handleUserJoin(user: User) {
@@ -19,18 +20,14 @@ export const useLoginUser = () => {
     }
 
     function handleFirstJoin(user: User) {
-      const message = createMessage(
-        user,
-        `${user.name} joined`,
-        MessageType.Join,
-      );
-      chatChannel.send(message);
+      const message = chatChannel.userJoin(user);
+      addMessage(message);
     }
 
     if (user) {
       handleUserJoin(user);
     }
-  }, [user, join]);
+  }, [user, join, addMessage]);
 
   function login(name: string) {
     setUser({
