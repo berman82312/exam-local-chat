@@ -36,6 +36,9 @@ export const ChatMessageSender = () => {
         onKeyDown={onKeyDown}
         slotProps={{
           input: {
+            sx: {
+              colorScheme: "dark",
+            },
             endAdornment: (
               <IconButton onClick={sendMessage}>
                 <Send />
