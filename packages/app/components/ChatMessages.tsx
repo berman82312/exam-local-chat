@@ -15,7 +15,9 @@ interface MessageItemProps extends MessageProps {
 const MiddleMessage = ({ message }: MessageProps) => {
   return (
     <div className="flex items-center justify-center">
-      <p>{message.content}</p>
+      <p className="p-2 text-xs bg-gray-800/50 rounded-full my-2">
+        {message.content}
+      </p>
     </div>
   );
 };
