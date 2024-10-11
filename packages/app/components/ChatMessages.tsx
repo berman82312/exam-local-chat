@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useLoginUser } from "../hooks/useLoginUser";
 import { useMessagesStore } from "../stores/chatMessages";
 import type { Message } from "../types/models";
@@ -59,8 +60,33 @@ const MessageItem = ({ message, isMe }: MessageItemProps) => {
 export const ChatMessages = () => {
   const { user } = useLoginUser();
   const messages = useMessagesStore((state) => state.messages);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleNewestIsMe(message: Message) {
+      if (isSystemMessage(message)) {
+        return;
+      }
+
+      if (message.user.name !== user?.name) {
+        return;
+      }
+
+      listRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    const lastMessage = messages[0];
+
+    if (lastMessage) {
+      handleNewestIsMe(lastMessage);
+    }
+  }, [messages, user]);
+
   return (
-    <div className="flex flex-grow flex-col-reverse overflow-auto">
+    <div
+      ref={listRef}
+      className="flex flex-grow flex-col-reverse overflow-auto"
+    >
       {messages.map((message) => (
         <MessageItem
           key={message.id}
