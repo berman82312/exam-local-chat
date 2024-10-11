@@ -1,10 +1,10 @@
 import { Box, Button, TextField } from "@mui/material";
 import type { KeyboardEventHandler } from "react";
 import { useState } from "react";
-import { useUserStore } from "../stores/user";
+import { useLoginUser } from "../hooks/useLoginUser";
 
 export const Login = () => {
-  const setUser = useUserStore((state) => state.setUser);
+  const { login } = useLoginUser();
   const [name, setName] = useState("");
 
   const onKeyDown: KeyboardEventHandler = (e) => {
@@ -15,9 +15,9 @@ export const Login = () => {
   };
 
   function loginUser() {
-    setUser({
-      name,
-    });
+    if (name) {
+      login(name);
+    }
   }
 
   return (

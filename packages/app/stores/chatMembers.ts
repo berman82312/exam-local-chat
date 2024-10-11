@@ -3,12 +3,15 @@ import { persist } from "zustand/middleware";
 import type { User } from "../types/models";
 
 interface MembersState {
-  members: Record<string, number>;
+  members: Record<string, User["id"][]>;
 }
 
+type isFirstJoin = boolean;
+type isLastLeave = boolean;
+
 interface MembersAction {
-  join: (user: User) => number;
-  leave: (user: User) => number;
+  join: (user: User) => isFirstJoin;
+  leave: (user: User) => isLastLeave;
 }
 
 interface MembersStore extends MembersState, MembersAction {}
@@ -19,28 +22,36 @@ export const useMembersStore = create<MembersStore>()(
       members: {},
       join: (user) => {
         const members = get().members;
-        const currentUserCount = members[user.name] ?? 0;
-        const newCount = currentUserCount + 1;
+        const currentIdList = members[user.name] ?? [];
+        if (currentIdList.includes(user.id)) {
+          return false;
+        }
+        const newList = currentIdList.concat([user.id]);
         set({
-          members: Object.assign({}, members, {
-            [user.name]: newCount,
-          }),
+          members: {
+            ...members,
+            [user.name]: newList,
+          },
         });
-        return newCount;
+        return currentIdList.length === 0;
       },
       leave: (user) => {
         const members = get().members;
-        const currentUserCount = members[user.name];
-        if (!currentUserCount) {
-          return 0;
+        const currentIdList = members[user.name] ?? [];
+        const existIndex = currentIdList.indexOf(user.id);
+        if (existIndex < 0) {
+          return false;
         }
-        const newCount = currentUserCount - 1;
+        const newList = currentIdList
+          .slice(0, existIndex)
+          .concat(currentIdList.slice(existIndex + 1));
         set({
-          members: Object.assign({}, members, {
-            [user.name]: newCount,
-          }),
+          members: {
+            ...members,
+            [user.name]: newList,
+          },
         });
-        return newCount;
+        return newList.length === 0;
       },
     }),
     {
