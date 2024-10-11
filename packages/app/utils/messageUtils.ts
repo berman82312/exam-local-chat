@@ -25,3 +25,14 @@ export function isSystemMessage(message: Message) {
 
   return systemMessageTypes.includes(message.type);
 }
+
+export function getMessageTime(message: Message) {
+  const createdAt = new Date(message.createdAt);
+  const hours = createdAt.getHours();
+  const minutes = createdAt.getMinutes();
+
+  const hourStr = `0${hours}`.slice(-2);
+  const minuteStr = `0${minutes}`.slice(-2);
+
+  return `${hourStr}:${minuteStr}`;
+}

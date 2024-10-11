@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useLoginUser } from "../hooks/useLoginUser";
 import { useMessagesStore } from "../stores/chatMessages";
 import type { Message } from "../types/models";
-import { isSystemMessage } from "../utils/messageUtils";
+import { getMessageTime, isSystemMessage } from "../utils/messageUtils";
 import { isSameUser } from "../utils/userUtils";
 
 interface MessageProps {
@@ -26,7 +26,9 @@ const MiddleMessage = ({ message }: MessageProps) => {
 const MyMessage = ({ message }: MessageProps) => {
   return (
     <div className="my-2 flex flex-col items-end">
-      <p className="text-xs text-gray-400">Me</p>
+      <p className="text-xs text-gray-400">
+        Me <span className="text-gray-600">{getMessageTime(message)}</span>
+      </p>
       <p className="p-2 bg-sky-800 rounded-md whitespace-pre-wrap max-w-full ml-16">
         {message.content}
       </p>
@@ -37,7 +39,10 @@ const MyMessage = ({ message }: MessageProps) => {
 const OtherMessage = ({ message }: MessageProps) => {
   return (
     <div className="my-2 flex flex-col items-start">
-      <p className="text-xs text-gray-400">{message.user.name}</p>
+      <p className="text-xs text-gray-400">
+        {message.user.name}{" "}
+        <span className="text-gray-600">{getMessageTime(message)}</span>
+      </p>
       <p className="p-2 bg-gray-800 rounded-md whitespace-pre-wrap max-w-full mr-16">
         {message.content}
       </p>
