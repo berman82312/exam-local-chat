@@ -17,7 +17,10 @@ export const ChatMessageSender = () => {
   };
 
   function sendMessage() {
-    send(user!, message);
+    const isEmpty = !message.trim();
+    if (!isEmpty) {
+      send(user!, message);
+    }
     setMessage("");
   }
 

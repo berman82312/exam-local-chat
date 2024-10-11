@@ -24,7 +24,9 @@ const MyMessage = ({ message }: MessageProps) => {
   return (
     <div className="my-2 flex flex-col items-end">
       <p className="text-xs text-gray-400">Me</p>
-      <p className="p-2 bg-sky-800 rounded-md">{message.content}</p>
+      <p className="p-2 bg-sky-800 rounded-md whitespace-pre">
+        {message.content}
+      </p>
     </div>
   );
 };
@@ -33,7 +35,9 @@ const OtherMessage = ({ message }: MessageProps) => {
   return (
     <div className="flex flex-col items-start my-2">
       <p className="text-xs text-gray-400">{message.user.name}</p>
-      <p className="p-2 bg-gray-800 rounded-md">{message.content}</p>
+      <p className="p-2 bg-gray-800 rounded-md whitespace-pre">
+        {message.content}
+      </p>
     </div>
   );
 };
