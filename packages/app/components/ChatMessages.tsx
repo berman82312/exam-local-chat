@@ -13,7 +13,7 @@ interface MessageItemProps extends MessageProps {
   isMe: boolean;
 }
 
-const MiddleMessage = ({ message }: MessageProps) => {
+const SystemMessage = ({ message }: MessageProps) => {
   return (
     <div className="flex items-center justify-center">
       <p className="p-2 text-xs bg-gray-800/50 rounded-full my-2">
@@ -52,7 +52,7 @@ const OtherMessage = ({ message }: MessageProps) => {
 
 const MessageItem = ({ message, isMe }: MessageItemProps) => {
   if (isSystemMessage(message)) {
-    return <MiddleMessage message={message} />;
+    return <SystemMessage message={message} />;
   }
 
   if (isMe) {
